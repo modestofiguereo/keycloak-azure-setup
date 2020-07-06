@@ -23,8 +23,6 @@ case $1 in
 
   *)
     WORKING_DIR=$(pwd) CURRENT_UID=$(id -u):$(id -g) docker-compose \
-      -f ./docker/docker-compose.infraestructure.yml \
-      -f ./docker/docker-compose.tests.yml \
-      -f ./docker/docker-compose.apps.yml $@
+      -f ./docker/docker-compose.yaml $@
     ;;
 esac

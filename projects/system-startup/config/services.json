@@ -56,7 +56,7 @@
           "client_id": "kong",
           "client_secret": "<CLIENT_SECRET>",
           "discovery": "http://accounts.amadita.loc:8000/auth/realms/amadita/.well-known/openid-configuration",
-          "bearer_only": "yes",
+          "bearer_only": "no",
           "realm": "amadita",
           "introspection_endpoint": "http://accounts.amadita.loc:8000/auth/realms/amadita/protocol/openid-connect/token/introspect"
         },
