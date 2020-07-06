@@ -1,0 +1,61 @@
+[
+  {
+    "id": "amadita",
+    "realm": "amadita",
+    "enabled": true,
+    "registrationAllowed": true,
+    "registrationEmailAsUsername": false,
+    "loginWithEmailAllowed": true,
+    "rememberMe": true,
+    "verifyEmail": true,
+    "resetPasswordAllowed": true,
+    "adminEventsEnabled": true,
+    "eventsEnabled": true,
+    "smtpServer": {
+      "host": "smtp.zoho.com",
+      "port": 465,
+      "fromDisplayName": "Amadita",
+      "from": "noreply@amadita.com",
+      "auth": true,
+      "user": "<SMTP_USER>",
+      "password": "<SMTP_PASSWORD>",
+      "ssl": true,
+      "starttls": true
+    },
+    "clients": [
+      {
+        "id": "kong",
+        "clientId": "kong",
+        "standardFlowEnabled": true,
+        "directAccessGrantsEnabled": true,
+        "serviceAccountsEnabled": true,
+        "protocol": "openid-connect",
+        "publicClient": false,
+        "rootUrl": "http://amadita.loc:8000",
+        "redirectUris": ["/*"],
+        "webOrigins": [
+          "http://amadita.loc:8000",
+          "http://accounts.amadita.loc:8000"
+        ],
+        "enabled": true
+      }
+    ],
+    "users": [
+      {
+        "username": "mody",
+        "firstName": "Modesto",
+        "lastName": "Figuereo Fernandez",
+        "email": "me@modestofiguereo.com",
+        "emailVerified": true,
+        "enabled": true,
+        "credentials":[
+          {
+            "type":"password",
+            "value":"mody",
+            "temporary":false
+          }
+        ]
+      }
+    ]
+  }
+]

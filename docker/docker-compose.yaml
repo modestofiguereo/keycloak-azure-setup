@@ -1,0 +1,212 @@
+version: '2.4'
+
+services:
+  webapp: &webapp
+    container_name: webapp
+    build:
+      context: ${WORKING_DIR}/projects/webapp
+      dockerfile: ./Dockerfile
+      args:
+        NODE_VERSION: 12
+    volumes:
+      - ${WORKING_DIR}/projects/webapp:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CI=true
+      - NODE_PATH=src
+    user: ${CURRENT_UID}
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://webapp:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      amadita:
+        aliases:
+          - webapp
+
+  postgres: &postgres
+    container_name: postgres
+    image: postgres:11.1
+    volumes:
+      - .psqlrc:/root/.psqlrc:ro
+      - ./postgres:/docker-entrypoint-initdb.d/
+      - postgres:/var/lib/postgresql/data
+      - ./log:/root/log:cached
+    environment:
+      PSQL_HISTFILE: /root/log/.psql_history
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      amadita:
+        aliases:
+          - postgres
+
+  kong-bootstrap: &kong-bootstrap
+    container_name: kong-bootstrap
+    image: kong:2.0.3
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_PASSWORD: kong
+      KONG_CASSANDRA_CONTACT_POINTS: postgres
+    command: kong migrations bootstrap -v
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      amadita:
+        aliases:
+          - kong-bootstrap
+
+  kong: &kong
+    build:
+      context: ${WORKING_DIR}/projects/kong/
+    container_name: kong
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_PASSWORD: kong
+      KONG_CASSANDRA_CONTACT_POINTS: postgres
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+    ports:
+      - 8000:8000
+      - 8443:8443
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://kong:8001/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      amadita:
+        aliases:
+          - kong
+          - amadita.loc
+          - accounts.amadita.loc
+
+  konga-prepare: &konga-prepare
+    container_name: konga-prepare
+    image: pantsel/konga
+    command: "-c prepare -a postgres -u postgresql://konga:konga@postgres:5432/konga"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      amadita:
+        aliases:
+          - konga-prepare
+
+  konga: &konga
+    container_name: konga
+    image: pantsel/konga
+    environment:
+      DB_ADAPTER: postgres
+      DB_HOST: postgres
+      DB_USER: konga
+      DB_PASSWORD: konga
+      TOKEN_SECRET: km1GUr4RkcQD7DewhJPNXrCuZwcKmqjb
+      DB_DATABASE: konga
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      amadita:
+        aliases:
+          - konga
+
+  iam: &iam
+    container_name: iam
+    image: quay.io/keycloak/keycloak:9.0.3
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    restart: on-failure
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [
+        "CMD",
+        "curl",
+        "-f",
+        "-d",
+        "client_id=admin-cli",
+        "-d",
+        "username=admin",
+        "-d",
+        "password=admin",
+        "-d",
+        "grant_type=password",
+        "http://localhost:8080/auth/realms/master/protocol/openid-connect/token",
+        "-s"
+      ]
+      interval: 20s
+      timeout: 60s
+      retries: 10
+    networks:
+      amadita:
+        aliases:
+          - iam
+
+  system-startup: &system-startup
+    container_name: system-startup
+    build:
+      context: ${WORKING_DIR}/projects/system-startup
+      dockerfile: ./Dockerfile
+      args:
+        NODE_VERSION: '12'
+    volumes:
+      - ${WORKING_DIR}/projects/system-startup:/app
+    environment:
+      GATEWAY: http://kong:8001
+      IAM: http://iam:8080
+      KEYCLOAK_USERNAME: admin
+      KEYCLOAK_PASSWORD: admin
+    env_file:
+      - ${WORKING_DIR}/projects/system-startup/.env
+    depends_on:
+      kong:
+        condition: service_healthy
+      webapp:
+        condition: service_healthy
+      iam:
+        condition: service_healthy
+    networks:
+      amadita:
+        aliases:
+          - system-startup
+
+  service-register: &service-register
+    <<: *system-startup
+    container_name: service-register
+    command: "npm run kong:service-register"
+
+  realm-register: &realm-register
+    <<: *system-startup
+    container_name: realm-register
+    command: "npm run keycloak:realm-register"
+
+volumes:
+  postgres:
+  node_modules:
+
+networks:
+  amadita:

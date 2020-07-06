@@ -1,0 +1,31 @@
+{
+  "env": {
+      "es6": true,
+      "node": true,
+      "cypress/globals": true
+  },
+  "extends": "airbnb-base",
+  "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+  },
+  "rules": {
+      "cypress/no-assigning-return-values": "error",
+      "cypress/no-unnecessary-waiting": "error",
+      "cypress/assertion-before-screenshot": "warn",
+      "cypress/no-force": "warn",
+      "no-restricted-syntax": "off",
+      "no-await-in-loop": "off",
+      "no-unused-expressions": "off",
+      "quotes": ["error", "single"],
+      "semi": ["error", "always"],
+      "no-console": ["error", { "allow": ["info", "warn", "error"] }]
+  },
+  "plugins": [
+      "cypress"
+  ]
+}

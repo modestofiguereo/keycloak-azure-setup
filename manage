@@ -1,0 +1,30 @@
+#!/bin/bash
+
+case $1 in
+  install)
+    WORKING_DIR=$(pwd) CURRENT_UID=$(id -u):$(id -g) ./scripts/install.sh
+    ;;
+
+  bootstrap)
+    WORKING_DIR=$(pwd) CURRENT_UID=$(id -u):$(id -g) ./scripts/bootstrap.sh
+    ;;
+
+  init)
+    WORKING_DIR=$(pwd) CURRENT_UID=$(id -u):$(id -g) ./scripts/init.sh
+    ;;
+
+  halt)
+    WORKING_DIR=$(pwd) CURRENT_UID=$(id -u):$(id -g) ./scripts/halt.sh
+    ;;
+
+  uninstall)
+    WORKING_DIR=$(pwd) CURRENT_UID=$(id -u):$(id -g) ./scripts/uninstall.sh
+    ;;
+
+  *)
+    WORKING_DIR=$(pwd) CURRENT_UID=$(id -u):$(id -g) docker-compose \
+      -f ./docker/docker-compose.infraestructure.yml \
+      -f ./docker/docker-compose.tests.yml \
+      -f ./docker/docker-compose.apps.yml $@
+    ;;
+esac
