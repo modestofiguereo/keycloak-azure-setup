@@ -55,10 +55,10 @@
         "config": {
           "client_id": "kong",
           "client_secret": "<CLIENT_SECRET>",
-          "discovery": "http://accounts.amadita.loc:8000/auth/realms/amadita/.well-known/openid-configuration",
+          "discovery": "https://accounts.amadita.loc:8443/auth/realms/amadita/.well-known/openid-configuration",
           "bearer_only": "no",
           "realm": "amadita",
-          "introspection_endpoint": "http://accounts.amadita.loc:8000/auth/realms/amadita/protocol/openid-connect/token/introspect"
+          "introspection_endpoint": "https://accounts.amadita.loc:8443/auth/realms/amadita/protocol/openid-connect/token/introspect"
         },
         "enabled": true
       }

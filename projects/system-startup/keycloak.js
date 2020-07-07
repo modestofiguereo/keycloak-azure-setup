@@ -52,16 +52,6 @@ const api = process.env.IAM || 'http://iam:8080';
       }
     }
   }
-
-  const secret = await getSecret(
-    accessToken,
-    api,
-    'backoffice',
-    'monolith-api',
-  );
-
-  await fs.writeFile('.env.api.generated', `KEYCLOAK_SECRET=${secret}`);
-  console.info('File env.api.generated was created successfully.');
 })()
   .then(() => {
     console.info('** REALMS REGISTED SUCESSFULLY **');
