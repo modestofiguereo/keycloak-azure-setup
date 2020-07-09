@@ -4,10 +4,10 @@
     "realm": "amadita",
     "enabled": true,
     "registrationAllowed": true,
-    "registrationEmailAsUsername": false,
+    "registrationEmailAsUsername": true,
     "loginWithEmailAllowed": true,
     "rememberMe": true,
-    "verifyEmail": true,
+    "verifyEmail": false,
     "loginTheme": "keycloak",
     "resetPasswordAllowed": true,
     "adminEventsEnabled": true,
@@ -31,11 +31,11 @@
         "directAccessGrantsEnabled": true,
         "protocol": "openid-connect",
         "publicClient": false,
-        "rootUrl": "http://amadita.loc:8000",
+        "rootUrl": "https://amadita.loc:8443",
         "redirectUris": ["/*"],
         "webOrigins": [
-          "http://amadita.loc:8000",
-          "http://accounts.amadita.loc:8000"
+          "https://amadita.loc:8443",
+          "https://accounts.amadita.loc:8443"
         ],
         "enabled": true
       }

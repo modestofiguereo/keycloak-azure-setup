@@ -32,7 +32,7 @@ services:
     volumes:
       - .psqlrc:/root/.psqlrc:ro
       - ./postgres:/docker-entrypoint-initdb.d/
-      - postgres:/var/lib/postgresql/data
+      - amadita_postgres:/var/lib/postgresql/data
       - ./log:/root/log:cached
     environment:
       PSQL_HISTFILE: /root/log/.psql_history
@@ -206,8 +206,7 @@ services:
     command: "npm run keycloak:realm-register"
 
 volumes:
-  postgres:
-  node_modules:
+  amadita_postgres:
 
 networks:
   amadita:
