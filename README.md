@@ -120,39 +120,41 @@ IF YOU HAVE AN ACTIVE DIRECTORY ALREADY YOU CAN SKIP THIS SECTION.
 
 ![Create tenant screenshot](screenshots/create-tenant.png "Create tenant")
 
-5. Ragister a new application using Azure portal; follow the instructions in this [link](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app).
+#### Setting Keycloak
 
-6. Let's import the configuration. Copy the OpenID connect metadata url.
+1. Ragister a new application using Azure portal; follow the instructions in this [link](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app).
+
+2. Let's import the configuration. Copy the OpenID connect metadata url.
 
 ![OpenID Connent metadata link screenshot](screenshots/metadata-link.png "OpenID Connent metadata link")
 
-7. Go to the [Keycloak dashboard](https://accounts.amadita.loc:8443/) and login.
+3. Go to the [Keycloak dashboard](https://accounts.amadita.loc:8443/) and login.
 
 ![Keycloak home screenshot](screenshots/keycloak-home.png "Keycloak home")
 
 ![Keycloak login screenshot](screenshots/keycloak-login.png "Keycloak login")
 
-8. Go to the **Identity Providers** page.
+4. Go to the **Identity Providers** page.
 
 ![Identity providers screenshot](screenshots/empty-identity-providers-page.png "Identity providers")
 
-9. Add a new **OpenID Connect** provider.
+5. Add a new **OpenID Connect** provider.
 
-10. Scroll to the button of the screen and paste the url you copied from Azure (step 6) in the **Import from URL** field. Then click **Import**. Most of the form will be filled automatically.
+6. Scroll to the button of the screen and paste the url you copied from Azure (step 6) in the **Import from URL** field. Then click **Import**. Most of the form will be filled automatically.
 
 ![Import from URL screenshot](screenshots/import-from-url.png "Import from URL")
 
-11. Now scroll up to the **Client Authentication** section. Set client authentication as in the image. You can get **Client ID** and **Client Secret** from Azure.
+7. Now scroll up to the **Client Authentication** section. Set client authentication as in the image. You can get **Client ID** and **Client Secret** from Azure.
 
 ![Credentials screenshot](screenshots/credentials.png "Credentials")
 ![Credentials screenshot](screenshots/azure-credentials.png "Credentials")
 ![Credentials screenshot](screenshots/azure-credentials-2.png "Credentials")
 
-12. Scroll up and set **Display Name** to **Azure AD**.
+8. Scroll up and set **Display Name** to **Azure AD**.
 
-13. Click **Save**.
+9. Click **Save**.
 
-14. Go to the **Authentication** page. Select **Broser** flow and make sure everything looks like in the screenshot below.
+10. Go to the **Authentication** page. Select **Broser** flow and make sure everything looks like in the screenshot below.
 
 ![Authentication screenshot](screenshots/authentication-flow.png "Authentication")
 
