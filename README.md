@@ -6,7 +6,6 @@ This project is a prototype for the purpose demonstrairing how to use [Keycloak]
 
 - [Docker](https://www.docker.com/)
 - [docker-compose](https://github.com/docker/compose)
-- [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) (@TODO)
 
 ## Setting up the project
 
