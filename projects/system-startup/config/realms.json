@@ -1,7 +1,7 @@
 [
   {
-    "id": "amadita",
-    "realm": "amadita",
+    "id": "prototype",
+    "realm": "prototype",
     "enabled": true,
     "registrationAllowed": true,
     "registrationEmailAsUsername": true,
@@ -15,8 +15,8 @@
     "smtpServer": {
       "host": "smtp.zoho.com",
       "port": 465,
-      "fromDisplayName": "Amadita",
-      "from": "noreply@amadita.com",
+      "fromDisplayName": "prototype",
+      "from": "noreply@prototype.com",
       "auth": true,
       "user": "<SMTP_USER>",
       "password": "<SMTP_PASSWORD>",
@@ -31,11 +31,11 @@
         "directAccessGrantsEnabled": true,
         "protocol": "openid-connect",
         "publicClient": false,
-        "rootUrl": "https://amadita.loc:8443",
+        "rootUrl": "https://prototype.loc:8443",
         "redirectUris": ["/*"],
         "webOrigins": [
-          "https://amadita.loc:8443",
-          "https://accounts.amadita.loc:8443"
+          "https://prototype.loc:8443",
+          "https://accounts.prototype.loc:8443"
         ],
         "enabled": true
       }

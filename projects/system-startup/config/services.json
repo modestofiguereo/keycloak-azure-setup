@@ -10,7 +10,7 @@
           "/"
         ],
         "hosts": [
-          "amadita.loc"
+          "prototype.loc"
         ],
         "strip_path": false,
         "preserve_host": true
@@ -22,7 +22,8 @@
         "name": "cors",
         "config": {
           "origins": [
-            "http://amadita.loc:8000"
+            "http://prototype.loc:8000",
+            "https://prototype.loc:8443"
           ],
           "methods": [
             "GET",
@@ -55,10 +56,10 @@
         "config": {
           "client_id": "kong",
           "client_secret": "<CLIENT_SECRET>",
-          "discovery": "https://accounts.amadita.loc:8443/auth/realms/amadita/.well-known/openid-configuration",
+          "discovery": "https://accounts.prototype.loc:8443/auth/realms/prototype/.well-known/openid-configuration",
           "bearer_only": "no",
-          "realm": "amadita",
-          "introspection_endpoint": "https://accounts.amadita.loc:8443/auth/realms/amadita/protocol/openid-connect/token/introspect"
+          "realm": "prototype",
+          "introspection_endpoint": "https://accounts.prototype.loc:8443/auth/realms/prototype/protocol/openid-connect/token/introspect"
         },
         "enabled": true
       }
@@ -75,7 +76,7 @@
           "/"
         ],
         "hosts": [
-          "accounts.amadita.loc"
+          "accounts.prototype.loc"
         ],
         "strip_path": false,
         "preserve_host": true
@@ -93,7 +94,7 @@
           "/"
         ],
         "hosts": [
-          "konga.amadita.loc"
+          "konga.prototype.loc"
         ],
         "strip_path": false,
         "preserve_host": true
@@ -104,7 +105,10 @@
         "id": "2d630754-41a8-453b-947f-70f695815cd1",
         "name": "cors",
         "config": {
-          "origins": ["http://konga.amadita.loc:8000"],
+          "origins": [
+            "http://konga.prototype.loc:8000",
+            "https://konga.prototype.loc:8443"
+          ],
           "methods": [
             "GET",
             "POST",

@@ -16,9 +16,9 @@ The process for installing and getting up and running the project is fully autom
 You have to modify your `/etc/hosts` file and append the following:
 
 ```bash
-127.0.0.1 amadita.loc
-127.0.0.1 konga.amadita.loc
-127.0.0.1 accounts.amadita.loc
+127.0.0.1 prototype.loc
+127.0.0.1 konga.prototype.loc
+127.0.0.1 accounts.prototype.loc
 ```
 
 <span style="color:red">
@@ -43,9 +43,9 @@ This command will:
 
 After the scripts are done executing you can access the application through your browser:
 
-- [https://amadita.loc:8443](https://amadita.loc:8443): Dummy react application created with react-create-app.
-- [https://konga.amadita.loc:8443](https://konga.amadita.loc:8443): Kong dashboard.
-- [https://accounts.amadita.loc:8443](https://accounts.amadita.loc:8443): Keycloak dashboard.
+- [https://prototype.loc:8443](https://prototype.loc:8443): Dummy react application created with react-create-app.
+- [https://konga.prototype.loc:8443](https://konga.prototype.loc:8443): Kong dashboard.
+- [https://accounts.prototype.loc:8443](https://accounts.prototype.loc:8443): Keycloak dashboard.
 
 ### Running
 
@@ -128,7 +128,7 @@ IF YOU HAVE AN ACTIVE DIRECTORY ALREADY YOU CAN SKIP THIS SECTION.
 
 ![OpenID Connent metadata link screenshot](screenshots/metadata-link.png "OpenID Connent metadata link")
 
-3. Go to the [Keycloak dashboard](https://accounts.amadita.loc:8443/) and login.
+3. Go to the [Keycloak dashboard](https://accounts.prototype.loc:8443/) and login.
 
 ![Keycloak home screenshot](screenshots/keycloak-home.png "Keycloak home")
 

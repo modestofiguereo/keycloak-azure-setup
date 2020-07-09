@@ -22,7 +22,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      amadita:
+      prototype:
         aliases:
           - webapp
 
@@ -32,7 +32,7 @@ services:
     volumes:
       - .psqlrc:/root/.psqlrc:ro
       - ./postgres:/docker-entrypoint-initdb.d/
-      - amadita_postgres:/var/lib/postgresql/data
+      - prototype_postgres:/var/lib/postgresql/data
       - ./log:/root/log:cached
     environment:
       PSQL_HISTFILE: /root/log/.psql_history
@@ -42,7 +42,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      amadita:
+      prototype:
         aliases:
           - postgres
 
@@ -59,7 +59,7 @@ services:
       postgres:
         condition: service_healthy
     networks:
-      amadita:
+      prototype:
         aliases:
           - kong-bootstrap
 
@@ -89,11 +89,11 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      amadita:
+      prototype:
         aliases:
           - kong
-          - amadita.loc
-          - accounts.amadita.loc
+          - prototype.loc
+          - accounts.prototype.loc
 
   konga-prepare: &konga-prepare
     container_name: konga-prepare
@@ -103,7 +103,7 @@ services:
       postgres:
         condition: service_healthy
     networks:
-      amadita:
+      prototype:
         aliases:
           - konga-prepare
 
@@ -122,7 +122,7 @@ services:
       postgres:
         condition: service_healthy
     networks:
-      amadita:
+      prototype:
         aliases:
           - konga
 
@@ -163,7 +163,7 @@ services:
       timeout: 60s
       retries: 10
     networks:
-      amadita:
+      prototype:
         aliases:
           - iam
 
@@ -191,7 +191,7 @@ services:
       iam:
         condition: service_healthy
     networks:
-      amadita:
+      prototype:
         aliases:
           - system-startup
 
@@ -206,7 +206,7 @@ services:
     command: "npm run keycloak:realm-register"
 
 volumes:
-  amadita_postgres:
+  prototype_postgres:
 
 networks:
-  amadita:
+  prototype:
