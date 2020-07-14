@@ -37,7 +37,7 @@ while [[ true ]]; do
 
   HEALTH_STATUS=$(docker-compose \
     -f $WORKING_DIR/docker/docker-compose.yaml \
-    ps | grep iam | awk '{print substr($5,1,9)}')
+    ps | grep iam | awk '{print substr($4,1,9)}')
 
   if [[ $HEALTH_STATUS -eq '(healthy)' ]] &> /dev/null; then
     echo ""

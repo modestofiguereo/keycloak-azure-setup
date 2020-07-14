@@ -1,4 +1,4 @@
-const services = require('./config/services.json');
+const services = require('./config/services');
 const {
   serviceExist,
   createService,

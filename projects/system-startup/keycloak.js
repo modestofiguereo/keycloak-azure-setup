@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const realms = require('./config/realms.json');
+const realms = require('./config/realms');
 const {
   getAccessToken,
   realmExist,
@@ -47,7 +47,7 @@ const api = process.env.IAM || 'http://iam:8080';
     }
 
     for (const user of users) {
-      if (!(await userExist(api, accessToken, realm.id, user.username))) {
+      if (!(await userExist(api, accessToken, realm.id, user.email))) {
         await createUser(api, accessToken, realm.id, user);
       }
     }

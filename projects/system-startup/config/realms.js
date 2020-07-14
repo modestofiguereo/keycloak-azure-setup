@@ -1,0 +1,60 @@
+module.exports = [
+  {
+    id: process.env.REALM_NAME,
+    realm: process.env.REALM_NAME,
+    enabled: true,
+    registrationAllowed: true,
+    registrationEmailAsUsername: true,
+    loginWithEmailAllowed: true,
+    rememberMe: true,
+    verifyEmail: false,
+    resetPasswordAllowed: true,
+    adminEventsEnabled: true,
+    eventsEnabled: true,
+    smtpServer: {
+      host: process.env.REALM_SMTP_HOST,
+      port: process.env.REALM_SMTP_PORT,
+      fromDisplayName: process.env.REALM_FROM_DISPLAY_NAME,
+      from: process.env.REALM_FROM,
+      auth: true,
+      user: process.env.REALM_SMTP_USER,
+      password: process.env.REALM_SMTP_PASSWORD,
+      ssl: true,
+      starttls: true,
+    },
+    clients: [
+      {
+        id: process.env.KONG_CLIENT_ID,
+        clientId: process.env.KONG_CLIENT_ID,
+        standardFlowEnabled: true,
+        directAccessGrantsEnabled: true,
+        serviceAccountsEnabled: true,
+        protocol: 'openid-connect',
+        publicClient: false,
+        rootUrl: `https://${process.env.ENVIRONMENT_APP_DOMAIN}:8443`,
+        redirectUris: ['/*'],
+        webOrigins: [
+          `https://${process.env.ENVIRONMENT_APP_DOMAIN}:8443`,
+          `https://accounts.${process.env.ENVIRONMENT_APP_DOMAIN}:8443`,
+        ],
+        enabled: true,
+      },
+    ],
+    users: [
+      {
+        firstName: process.env.REALM_USER_FIRSTNAME,
+        lastName: process.env.REALM_USER_LASTNAME,
+        email: process.env.REALM_USER_EMAIL,
+        emailVerified: true,
+        enabled: true,
+        credentials: [
+          {
+            type: 'password',
+            value: process.env.REALM_USER_PASSWORD,
+            temporary: false,
+          },
+        ],
+      },
+    ],
+  },
+];

@@ -13,6 +13,8 @@ The process for installing and getting up and running the project is fully autom
 
 ### Before you start
 
+You have to create a .env file from the .env.exaple file that is inside `./projects/system-startup`.
+
 You have to modify your `/etc/hosts` file and append the following:
 
 ```bash
